@@ -1,0 +1,163 @@
+/* Upload Chapter Styles */
+.upload-chapter {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.upload-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.upload-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* File Upload Area */
+.file-upload-area {
+    border: 3px dashed rgba(255, 255, 255, 0.3);
+    border-radius: var(--border-radius-lg);
+    padding: 3rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.file-upload-area:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.file-upload-area.drag-active {
+    border-color: var(--primary-color);
+    background: rgba(102, 126, 234, 0.1);
+    transform: scale(1.02);
+}
+
+.file-upload-area.has-file {
+    border-style: solid;
+    border-color: var(--success-color);
+}
+
+.upload-label {
+    display: block;
+    cursor: pointer;
+}
+
+.upload-placeholder {
+    padding: 2rem;
+}
+
+.upload-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.upload-placeholder h3 {
+    margin-bottom: 0.5rem;
+}
+
+/* File Selected State */
+.file-selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+}
+
+.file-icon {
+    font-size: 3rem;
+}
+
+.file-info {
+    flex: 1;
+    text-align: left;
+    margin-left: 1rem;
+}
+
+.file-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.file-size {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Form Row */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Info Section */
+.info-section {
+    padding: 2rem;
+}
+
+.info-section h3 {
+    margin-bottom: 1rem;
+}
+
+.info-list {
+    padding-left: 1.5rem;
+}
+
+.info-list li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.info-list ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.info-list ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Success Box */
+.success-box {
+    padding: 1rem;
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: var(--border-radius);
+    color: #4caf50;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .upload-chapter {
+        padding: 1rem;
+    }
+
+    .upload-header h1 {
+        font-size: 2rem;
+    }
+
+    .file-upload-area {
+        padding: 2rem 1rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .file-selected {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .file-info {
+        margin-left: 0;
+        text-align: center;
+    }
+}

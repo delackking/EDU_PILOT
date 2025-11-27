@@ -1,0 +1,97 @@
+.analytics-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.subject-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.subject-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: #636e72;
+}
+
+.progress-bg {
+    height: 8px;
+    background: #dfe6e9;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease-out;
+}
+
+.analytics-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.analytics-box {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.analytics-box h4 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.analytics-box.weak h4 {
+    color: #d63031;
+}
+
+.analytics-box.strong h4 {
+    color: #00b894;
+}
+
+.analytics-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.analytics-box li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.analytics-box li:last-child {
+    border-bottom: none;
+}
+
+.topic-name {
+    font-size: 0.9rem;
+    color: #2d3436;
+}
+
+.score-badge {
+    font-size: 0.8rem;
+    font-weight: bold;
+    background: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state {
+    font-size: 0.9rem;
+    color: #b2bec3;
+    font-style: italic;
+}

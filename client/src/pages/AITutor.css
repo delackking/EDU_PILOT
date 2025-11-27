@@ -1,0 +1,214 @@
+.ai-tutor {
+    max-width: none;
+    margin: 0;
+    padding: var(--spacing-lg) 0;
+}
+
+.tutor-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.mode-selector {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mode-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    font-family: var(--font-family);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.mode-btn:hover {
+    background: var(--surface-hover);
+    color: var(--text-primary);
+    border-color: var(--primary);
+}
+
+.mode-btn.active {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.chat-mode,
+.image-mode {
+    padding: var(--spacing-xl);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.explanation-modes {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.explanation-mode-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--glass-border);
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    font-family: var(--font-family);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.explanation-mode-btn:hover {
+    background: var(--surface-hover);
+    color: var(--text-primary);
+    border-color: var(--primary);
+}
+
+.explanation-mode-btn.active {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: transparent;
+}
+
+.image-upload-area {
+    width: 100%;
+    min-height: 300px;
+    border: 2px dashed var(--glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-base);
+}
+
+.image-upload-area:hover {
+    border-color: var(--primary);
+    background: var(--surface-hover);
+}
+
+.upload-label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    cursor: pointer;
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    text-align: center;
+}
+
+.upload-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.image-preview {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    display: block;
+}
+
+.error-box {
+    padding: var(--spacing-md);
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: var(--radius-md);
+    color: #ff6b6b;
+}
+
+.response-box {
+    padding: var(--spacing-xl);
+    animation: fadeIn 0.6s ease;
+}
+
+.response-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--glass-border);
+}
+
+.response-header h3 {
+    margin: 0;
+}
+
+.response-content {
+    line-height: 1.8;
+}
+
+.response-content p {
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-size-lg);
+}
+
+.loading-box {
+    padding: var(--spacing-xl);
+    text-align: center;
+}
+
+.tips-box {
+    padding: var(--spacing-lg);
+}
+
+.tips-box h3 {
+    margin-bottom: var(--spacing-md);
+}
+
+.tips-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.tips-box li {
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    background: var(--surface);
+    border-left: 4px solid var(--success);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-base);
+}
+
+.tips-box li:hover {
+    background: var(--surface-hover);
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .explanation-modes {
+        flex-direction: column;
+    }
+
+    .explanation-mode-btn {
+        width: 100%;
+    }
+}

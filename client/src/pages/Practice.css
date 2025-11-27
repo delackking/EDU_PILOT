@@ -1,0 +1,218 @@
+.practice-mode {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-lg) 0;
+}
+
+.practice-header {
+    padding: var(--spacing-lg);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.question-card {
+    padding: var(--spacing-xl);
+}
+
+.question-type-badge {
+    margin-bottom: var(--spacing-md);
+}
+
+.question-text {
+    font-size: var(--font-size-2xl);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+}
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.option-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--surface);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-family: var(--font-family);
+    text-align: left;
+}
+
+.option-btn:hover:not(:disabled) {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+    transform: translateX(4px);
+}
+
+.option-btn.selected {
+    background: var(--primary-gradient);
+    border-color: transparent;
+    color: white;
+}
+
+.option-btn.correct {
+    background: var(--success-gradient);
+    border-color: transparent;
+    color: white;
+}
+
+.option-btn.incorrect {
+    background: rgba(255, 107, 107, 0.2);
+    border-color: #ff6b6b;
+}
+
+.option-btn:disabled {
+    cursor: not-allowed;
+}
+
+.option-letter {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.option-text {
+    flex: 1;
+    font-size: var(--font-size-lg);
+}
+
+.fill-blank-input input,
+.long-answer-input textarea {
+    font-size: var(--font-size-lg);
+}
+
+.feedback-box {
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    border-left: 4px solid;
+    animation: fadeIn 0.4s ease;
+}
+
+.feedback-box.correct {
+    background: rgba(0, 242, 254, 0.1);
+    border-color: var(--success);
+}
+
+.feedback-box.incorrect {
+    background: rgba(255, 107, 107, 0.1);
+    border-color: var(--danger);
+}
+
+.feedback-header {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+}
+
+.feedback-text {
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-sm);
+}
+
+.correct-answer-text {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.question-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+/* Practice Complete */
+.practice-complete {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) 0;
+}
+
+.complete-card {
+    padding: var(--spacing-xl);
+    text-align: center;
+}
+
+.complete-icon {
+    font-size: 5rem;
+    margin-bottom: var(--spacing-md);
+    animation: pulse 1s ease infinite;
+}
+
+.complete-card h1 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.score-display {
+    margin: var(--spacing-xl) 0;
+}
+
+.score-circle {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto var(--spacing-md);
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+}
+
+.score-number {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: white;
+}
+
+.score-text {
+    font-size: var(--font-size-xl);
+    color: var(--text-secondary);
+}
+
+.complete-message {
+    margin: var(--spacing-lg) 0;
+    padding: var(--spacing-md);
+    background: var(--surface);
+    border-radius: var(--radius-md);
+}
+
+.complete-message p {
+    font-size: var(--font-size-lg);
+    margin: 0;
+}
+
+.complete-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.complete-actions button {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .complete-actions {
+        flex-direction: column;
+    }
+}

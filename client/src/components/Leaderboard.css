@@ -1,0 +1,128 @@
+.leaderboard-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.leaderboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.leaderboard-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #2d3436;
+}
+
+.leaderboard-toggles {
+    display: flex;
+    background: #f1f2f6;
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #636e72;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.toggle-btn.active {
+    background: white;
+    color: #6c5ce7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.user-rank-banner {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.rank-number {
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+}
+
+.leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    border-bottom: 1px solid #f1f2f6;
+    transition: background 0.2s;
+}
+
+.leaderboard-item:hover {
+    background: #f8f9fa;
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.rank-col {
+    width: 40px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.student-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.student-name {
+    font-weight: 600;
+    color: #2d3436;
+}
+
+.student-level {
+    font-size: 0.8rem;
+    color: #b2bec3;
+}
+
+.xp-col {
+    font-weight: bold;
+    color: #6c5ce7;
+}
+
+/* Top 3 Styling */
+.rank-1 .student-name {
+    color: #e1b12c;
+}
+
+.rank-2 .student-name {
+    color: #b2bec3;
+}
+
+.rank-3 .student-name {
+    color: #cd6133;
+}

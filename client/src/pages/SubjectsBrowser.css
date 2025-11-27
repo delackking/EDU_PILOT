@@ -1,0 +1,127 @@
+.subjects-browser {
+    max-width: none;
+    margin: 0;
+    padding: var(--spacing-lg) 0;
+}
+
+.browser-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.subject-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: var(--spacing-md);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+}
+
+.subject-tab {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    font-family: var(--font-family);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.subject-tab:hover {
+    background: var(--surface-hover);
+    color: var(--text-primary);
+}
+
+.subject-tab.active {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.topic-card {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-base);
+}
+
+.topic-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.topic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+    gap: var(--spacing-sm);
+}
+
+.topic-header h3 {
+    font-size: var(--font-size-xl);
+    margin: 0;
+    flex: 1;
+}
+
+.topic-description {
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    flex: 1;
+}
+
+.topic-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.difficulty-indicator {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.difficulty-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--surface);
+    transition: all var(--transition-base);
+}
+
+.difficulty-dot.active {
+    background: var(--warning-gradient);
+    box-shadow: 0 0 8px rgba(254, 225, 64, 0.6);
+}
+
+.topic-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+    .topics-grid {
+        grid-template-columns: 1fr;
+    }
+}
