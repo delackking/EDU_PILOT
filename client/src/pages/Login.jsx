@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authAPI } from '../services/api';
+import { authAPI, schoolAPI } from '../services/api';
 import './Auth.css';
 
 function Login({ onLogin }) {
+    const [schools, setSchools] = useState([]);
     const [formData, setFormData] = useState({
-        email: '',
+        school_id: '',
+        school_assigned_id: '',
         password: ''
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchSchools();
+    }, []);
+
+    const fetchSchools = async () => {
+        try {
+            const response = await schoolAPI.list();
+            setSchools(response.data);
+        } catch (err) {
+            console.error('Failed to fetch schools', err);
+            setError('Failed to load schools. Please refresh.');
+        }
+    };
 
     const handleChange = (e) => {
         setFormData({
@@ -52,14 +68,33 @@ function Login({ onLogin }) {
                     )}
 
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
+                        <label htmlFor="school_id">Select School</label>
+                        <select
+                            id="school_id"
+                            name="school_id"
                             className="input"
-                            placeholder="student@example.com"
-                            value={formData.email}
+                            value={formData.school_id}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">-- Choose Your School --</option>
+                            {schools.map(school => (
+                                <option key={school.id} value={school.id}>
+                                    {school.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="school_assigned_id">ID (Roll No / Employee ID)</label>
+                        <input
+                            type="text"
+                            id="school_assigned_id"
+                            name="school_assigned_id"
+                            className="input"
+                            placeholder="e.g. STD001 or TCH001"
+                            value={formData.school_assigned_id}
                             onChange={handleChange}
                             required
                         />

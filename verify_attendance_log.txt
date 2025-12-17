@@ -1,0 +1,14 @@
+
+🔑 Logging in as Teacher...
+✅ Teacher Login Successful
+
+🔍 Verifying Get Class Students...
+✅ Fetched 2 students
+   First Student: Alice Doe (ID: 1)
+
+📝 Verifying Mark Attendance...
+✅ Attendance Marked Successfully
+
+🔍 Verifying Get Attendance...
+✅ Fetched 1 attendance records
+   Verified Record for Student 1: PRESENT

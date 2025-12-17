@@ -1,8 +1,8 @@
 .spin-wheel-container {
-    background: white;
+    background: #212234;
     padding: 1.5rem;
+    box-shadow: 0 6px 10px rgb(175, 175, 175);
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -36,16 +36,16 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 8px solid #dfe6e9;
+    border: 8px solid #000000;
     position: relative;
     overflow: hidden;
     transition: transform 4s cubic-bezier(0.2, 0.8, 0.2, 1);
     background: conic-gradient(#ff7675 0deg 60deg,
-            #74b9ff 60deg 120deg,
-            #55efc4 120deg 180deg,
-            #a29bfe 180deg 240deg,
-            #ffeaa7 240deg 300deg,
-            #ff7675 300deg 360deg);
+            #0080ff 60deg 120deg,
+            #00ffb7 120deg 180deg,
+            #1100ff 180deg 240deg,
+            #ffc400 240deg 300deg,
+            #ff0000 300deg 360deg);
 }
 
 .wheel-segment {
@@ -55,7 +55,7 @@
     transform-origin: 0 0;
     font-size: 0.8rem;
     font-weight: bold;
-    color: white;
+    color: rgb(255, 255, 255);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 

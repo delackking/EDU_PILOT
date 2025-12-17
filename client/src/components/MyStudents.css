@@ -106,147 +106,57 @@
 }
 
 .feedback-btn {
-    width: 100%;
+    flex: 1;
     padding: 0.8rem;
     background: #0984e3;
     color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
 
-    .my-students-container {
-        padding: 1.5rem;
-    }
+.feedback-btn:hover {
+    background: #0873c4;
+}
 
+.card-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.btn-view-profile {
+    flex: 1;
+    padding: 0.8rem;
+    background: #fff;
+    color: #2d3436;
+    border: 1px solid #dfe6e9;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-view-profile:hover {
+    background: #f1f2f6;
+    border-color: #b2bec3;
+}
+
+@media (max-width: 768px) {
     .crm-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
     }
 
     .school-badge {
-        background: #6c5ce7;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        display: flex;
-        gap: 1rem;
-        font-weight: 600;
-    }
-
-    .school-pin {
-        background: rgba(255, 255, 255, 0.2);
-        padding: 0 0.5rem;
-        border-radius: 4px;
+        width: 100%;
+        justify-content: center;
     }
 
     .students-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1.5rem;
-    }
-
-    .student-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s;
-    }
-
-    .student-card:hover {
-        transform: translateY(-4px);
-    }
-
-    .student-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .avatar {
-        width: 48px;
-        height: 48px;
-        background: #dfe6e9;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #636e72;
-    }
-
-    .class-badge {
-        font-size: 0.8rem;
-        background: #f1f2f6;
-        padding: 0.2rem 0.6rem;
-        border-radius: 12px;
-        color: #636e72;
-    }
-
-    .student-stats {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        padding: 1rem 0;
-        border-top: 1px solid #f1f2f6;
-        border-bottom: 1px solid #f1f2f6;
-    }
-
-    .stat {
-        text-align: center;
-    }
-
-    .stat .label {
-        display: block;
-        font-size: 0.75rem;
-        color: #b2bec3;
-        margin-bottom: 0.2rem;
-    }
-
-    .stat .value {
-        font-weight: bold;
-        color: #2d3436;
-    }
-
-    .stat .value.success {
-        color: #00b894;
-    }
-
-    .stat .value.danger {
-        color: #d63031;
-    }
-
-    .feedback-btn {
-        width: 100%;
-        padding: 0.8rem;
-        background: #0984e3;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-    }
-
-    .feedback-btn:hover {
-        background: #0873c4;
-    }
-
-    @media (max-width: 768px) {
-        .crm-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .school-badge {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .students-grid {
-            grid-template-columns: 1fr;
-        }
+        grid-template-columns: 1fr;
     }
 }

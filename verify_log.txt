@@ -1,0 +1,15 @@
+
+🔑 Logging in as Teacher...
+✅ Teacher Login Successful
+
+🔍 Verifying Teacher -> Get Student Profile...
+   Target Student: Alice Doe (ID: 1)
+✅ Fetched Detailed Profile Successfully
+   Academic Grade: A
+
+🔑 Logging in as Student...
+✅ Student Login Successful
+
+🔍 Verifying Student -> Get My Teachers...
+✅ Fetched 1 Teachers
+   First Teacher: John Smith

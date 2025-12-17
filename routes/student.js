@@ -180,4 +180,33 @@ router.get('/student/dashboard', (req, res) => {
     }
 });
 
+// Get My Teachers
+router.get('/student/my-teachers', (req, res) => {
+    try {
+        const studentId = req.user.profileId;
+
+        // Get student's school PIN
+        const student = db.prepare('SELECT school_pin FROM student_profiles WHERE id = ?').get(studentId);
+
+        if (!student) {
+            return res.status(404).json({ error: 'Student profile not found' });
+        }
+
+        // Find teachers with matching PIN
+        const teachers = db.prepare(`
+            SELECT 
+                u.name, u.school_assigned_id, tp.subjects, tp.classes
+            FROM teacher_profiles tp
+            JOIN users u ON tp.user_id = u.id
+            WHERE tp.school_pin = ?
+        `).all(student.school_pin);
+
+        res.json(teachers);
+
+    } catch (error) {
+        console.error('Get teachers error:', error);
+        res.status(500).json({ error: 'Failed to fetch teachers' });
+    }
+});
+
 export default router;

@@ -20,15 +20,47 @@ db.pragma('foreign_keys = ON');
 function initializeDatabase() {
   console.log('🗄️  Initializing EduPilot Database...');
 
-  // 1. Users table
+  // 0. Schools Table (New)
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS schools (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      address TEXT,
+      pin TEXT UNIQUE NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // 1. Users table (Modified)
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      email TEXT UNIQUE NOT NULL,
+      email TEXT UNIQUE, -- Made optional/secondary
       password TEXT NOT NULL,
       name TEXT NOT NULL,
-      role TEXT CHECK(role IN ('STUDENT', 'TEACHER', 'PARENT')) NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      role TEXT CHECK(role IN ('STUDENT', 'TEACHER', 'PARENT', 'ADMIN')) NOT NULL,
+      school_id INTEGER,
+      school_assigned_id TEXT, -- e.g., "STD001"
+      role_details TEXT, -- JSON string
+      attendance_stats TEXT, -- JSON string
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE,
+      UNIQUE(school_id, school_assigned_id) -- ID must be unique within the school
+    )
+  `);
+
+  // 17. Attendance Table (New)
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS attendance (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      school_id INTEGER NOT NULL,
+      date DATE NOT NULL,
+      status TEXT CHECK(status IN ('PRESENT', 'ABSENT', 'LATE', 'EXCUSED')) NOT NULL,
+      remarks TEXT,
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+      FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE,
+      UNIQUE(user_id, date)
     )
   `);
 

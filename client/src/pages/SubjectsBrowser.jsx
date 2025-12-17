@@ -76,7 +76,14 @@ function SubjectsBrowser() {
                             <span className="badge badge-primary">Class {topic.grade}</span>
                         </div>
                         <p className="topic-description text-secondary">
-                            {JSON.parse(topic.content).theory?.substring(0, 100)}...
+                            {(() => {
+                                try {
+                                    const parsed = JSON.parse(topic.content);
+                                    return parsed.theory?.substring(0, 100) || parsed.description?.substring(0, 100) || 'Start learning this topic...';
+                                } catch (e) {
+                                    return topic.content?.substring(0, 100) || 'Start learning this topic...';
+                                }
+                            })()}...
                         </p>
                         <div className="topic-meta">
                             <div className="difficulty-indicator">

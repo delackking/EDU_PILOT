@@ -144,11 +144,44 @@ router.get('/child/:studentId/analytics', (req, res) => {
             LIMIT 3
         `).all(studentId);
 
+        // 5. Attendance Stats
+        const attendanceStats = db.prepare(`
+            SELECT 
+                COUNT(*) as total_days,
+                SUM(CASE WHEN status = 'PRESENT' THEN 1 ELSE 0 END) as present_days,
+                SUM(CASE WHEN status = 'ABSENT' THEN 1 ELSE 0 END) as absent_days,
+                SUM(CASE WHEN status = 'LATE' THEN 1 ELSE 0 END) as late_days
+            FROM attendance
+            WHERE user_id = (SELECT user_id FROM student_profiles WHERE id = ?)
+        `).get(studentId);
+
+        // 6. Overall Grade (Mocked logic based on mastery for now)
+        const totalMastery = db.prepare('SELECT COUNT(*) as count FROM mastery WHERE student_id = ?').get(studentId);
+        const masteredCount = db.prepare("SELECT COUNT(*) as count FROM mastery WHERE student_id = ? AND status = 'MASTERED'").get(studentId);
+
+        let overallGrade = 'B';
+        if (totalMastery.count > 0) {
+            const percentage = (masteredCount.count / totalMastery.count) * 100;
+            if (percentage >= 90) overallGrade = 'A+';
+            else if (percentage >= 80) overallGrade = 'A';
+            else if (percentage >= 70) overallGrade = 'B';
+            else if (percentage >= 60) overallGrade = 'C';
+            else overallGrade = 'D';
+        }
+
         res.json({
             masteryBySubject,
             recentActivity,
             weakAreas,
-            strongAreas
+            strongAreas,
+            attendance: {
+                present: attendanceStats.present_days || 0,
+                absent: attendanceStats.absent_days || 0,
+                late: attendanceStats.late_days || 0,
+                total: attendanceStats.total_days || 0,
+                percentage: attendanceStats.total_days ? Math.round((attendanceStats.present_days / attendanceStats.total_days) * 100) : 100
+            },
+            overallGrade
         });
 
     } catch (error) {

@@ -1,0 +1,9 @@
+
+👨‍🏫 Logging in Teacher (TCH001)...
+✅ Teacher Login Successful
+
+📚 Fetching Topics...
+⚠️ No topics found. Cannot proceed with saving to a topic.
+
+✨ Generating Questions...
+✅ Generated 4 questions

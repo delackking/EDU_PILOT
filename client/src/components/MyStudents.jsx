@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './MyStudents.css';
 
-const MyStudents = () => {
+const MyStudents = ({ onViewProfile }) => {
     const [students, setStudents] = useState([]);
     const [schoolInfo, setSchoolInfo] = useState({ name: '', pin: '' });
     const [loading, setLoading] = useState(true);
@@ -88,12 +88,20 @@ const MyStudents = () => {
                             </div>
                         </div>
 
-                        <button
-                            className="feedback-btn"
-                            onClick={() => setSelectedStudent(student)}
-                        >
-                            Add Feedback
-                        </button>
+                        <div className="card-actions">
+                            <button
+                                className="btn-view-profile"
+                                onClick={() => onViewProfile(student.id)}
+                            >
+                                👤 View Profile
+                            </button>
+                            <button
+                                className="feedback-btn"
+                                onClick={() => setSelectedStudent(student)}
+                            >
+                                📝 Add Feedback
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

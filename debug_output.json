@@ -1,0 +1,75 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Smith",
+      "email": null,
+      "role": "TEACHER",
+      "school_id": 1,
+      "school_assigned_id": "TCH001"
+    },
+    {
+      "id": 2,
+      "name": "Alice Doe",
+      "email": null,
+      "role": "STUDENT",
+      "school_id": 1,
+      "school_assigned_id": "STD001"
+    },
+    {
+      "id": 3,
+      "name": "ansh sir",
+      "email": null,
+      "role": "STUDENT",
+      "school_id": 1,
+      "school_assigned_id": " STD002"
+    },
+    {
+      "id": 4,
+      "name": "Seymour Skinner",
+      "email": "skinner_1764426719114@springfield.edu",
+      "role": "ADMIN",
+      "school_id": 2,
+      "school_assigned_id": "ADMIN"
+    },
+    {
+      "id": 5,
+      "name": "Ansh Raj",
+      "email": "delackking@gmail.com",
+      "role": "ADMIN",
+      "school_id": 3,
+      "school_assigned_id": "ADMIN"
+    },
+    {
+      "id": 6,
+      "name": "Test Parent",
+      "email": "parent.test@example.com",
+      "role": "PARENT",
+      "school_id": 1,
+      "school_assigned_id": "PRT001"
+    }
+  ],
+  "schools": [
+    {
+      "id": 1,
+      "name": "Greenwood High",
+      "address": "123 Education Lane",
+      "pin": "1234",
+      "created_at": "2025-11-28 20:01:54"
+    },
+    {
+      "id": 2,
+      "name": "Springfield Elementary",
+      "address": "742 Evergreen Terrace",
+      "pin": "9999",
+      "created_at": "2025-11-29 14:31:59"
+    },
+    {
+      "id": 3,
+      "name": "NEURO LEARN",
+      "address": "ROHINI DELHI",
+      "pin": "1597",
+      "created_at": "2025-11-29 19:22:28"
+    }
+  ]
+}

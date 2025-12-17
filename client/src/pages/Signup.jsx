@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authAPI } from '../services/api';
+import { authAPI, schoolAPI } from '../services/api';
 import './Auth.css';
 
 function Signup({ onLogin }) {
+    const [schools, setSchools] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
+        school_id: '',
+        school_pin: '',
+        school_assigned_id: '', // Roll No or Employee ID
         password: '',
         role: 'STUDENT',
         class: '5',
-        school: '',
-        school_pin: '',
+        section: 'A',
         classes: [],
         subjects: [],
         preferred_language: 'English'
@@ -19,6 +21,20 @@ function Signup({ onLogin }) {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchSchools();
+    }, []);
+
+    const fetchSchools = async () => {
+        try {
+            const response = await schoolAPI.list();
+            setSchools(response.data);
+        } catch (err) {
+            console.error('Failed to fetch schools', err);
+            setError('Failed to load schools. Please refresh.');
+        }
+    };
 
     const handleChange = (e) => {
         setFormData({
@@ -49,7 +65,7 @@ function Signup({ onLogin }) {
             <div className="auth-card glass-card fade-in">
                 <div className="auth-header">
                     <h1 className="auth-title">Join EduPilot</h1>
-                    <p className="auth-subtitle">Start Your Learning Journey</p>
+                    <p className="auth-subtitle">School Learning Portal</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="auth-form">
@@ -58,6 +74,55 @@ function Signup({ onLogin }) {
                             {error}
                         </div>
                     )}
+
+                    <div className="form-group">
+                        <label htmlFor="school_id">Select School</label>
+                        <select
+                            id="school_id"
+                            name="school_id"
+                            className="input"
+                            value={formData.school_id}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">-- Choose Your School --</option>
+                            {schools.map(school => (
+                                <option key={school.id} value={school.id}>
+                                    {school.name} - {school.address}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="school_pin">School PIN</label>
+                        <input
+                            type="text"
+                            id="school_pin"
+                            name="school_pin"
+                            className="input"
+                            placeholder="Enter 4-digit School PIN"
+                            value={formData.school_pin}
+                            onChange={handleChange}
+                            required
+                            maxLength="4"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="role">I am a</label>
+                        <select
+                            id="role"
+                            name="role"
+                            className="input"
+                            value={formData.role}
+                            onChange={handleChange}
+                        >
+                            <option value="STUDENT">Student</option>
+                            <option value="TEACHER">Teacher</option>
+                            <option value="PARENT">Parent</option>
+                        </select>
+                    </div>
 
                     <div className="form-group">
                         <label htmlFor="name">Full Name</label>
@@ -74,14 +139,17 @@ function Signup({ onLogin }) {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="school_assigned_id">
+                            {formData.role === 'STUDENT' ? 'Roll Number / Student ID' :
+                                formData.role === 'TEACHER' ? 'Employee ID' : 'Parent ID'}
+                        </label>
                         <input
-                            type="email"
-                            id="email"
-                            name="email"
+                            type="text"
+                            id="school_assigned_id"
+                            name="school_assigned_id"
                             className="input"
-                            placeholder="student@example.com"
-                            value={formData.email}
+                            placeholder={formData.role === 'STUDENT' ? 'e.g. STD001' : 'e.g. TCH001'}
+                            value={formData.school_assigned_id}
                             onChange={handleChange}
                             required
                         />
@@ -102,21 +170,6 @@ function Signup({ onLogin }) {
                         />
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="role">I am a</label>
-                        <select
-                            id="role"
-                            name="role"
-                            className="input"
-                            value={formData.role}
-                            onChange={handleChange}
-                        >
-                            <option value="STUDENT">Student</option>
-                            <option value="TEACHER">Teacher</option>
-                            <option value="PARENT">Parent</option>
-                        </select>
-                    </div>
-
                     {formData.role === 'STUDENT' && (
                         <>
                             <div className="form-group">
@@ -133,34 +186,6 @@ function Signup({ onLogin }) {
                                     ))}
                                 </select>
                             </div>
-
-                            <div className="form-group">
-                                <label htmlFor="school">School Name</label>
-                                <input
-                                    type="text"
-                                    id="school"
-                                    name="school"
-                                    className="input"
-                                    placeholder="Your School Name"
-                                    value={formData.school}
-                                    onChange={handleChange}
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="school_pin">School PIN (Ask your teacher)</label>
-                                <input
-                                    type="text"
-                                    id="school_pin"
-                                    name="school_pin"
-                                    className="input"
-                                    placeholder="e.g. 1234"
-                                    value={formData.school_pin}
-                                    onChange={handleChange}
-                                    maxLength="4"
-                                />
-                            </div>
-
                             <div className="form-group">
                                 <label htmlFor="preferred_language">Preferred Language</label>
                                 <select
@@ -183,35 +208,6 @@ function Signup({ onLogin }) {
 
                     {formData.role === 'TEACHER' && (
                         <>
-                            <div className="form-group">
-                                <label htmlFor="school">School Name</label>
-                                <input
-                                    type="text"
-                                    id="school"
-                                    name="school"
-                                    className="input"
-                                    placeholder="Your School Name"
-                                    value={formData.school}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="school_pin">Create School PIN (4 digits)</label>
-                                <input
-                                    type="text"
-                                    id="school_pin"
-                                    name="school_pin"
-                                    className="input"
-                                    placeholder="e.g. 1234"
-                                    value={formData.school_pin}
-                                    onChange={handleChange}
-                                    required
-                                    maxLength="4"
-                                />
-                            </div>
-
                             <div className="form-group">
                                 <label>Classes You Teach (Hold Ctrl/Cmd to select multiple)</label>
                                 <select

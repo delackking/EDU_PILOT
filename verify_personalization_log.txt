@@ -1,0 +1,9 @@
+
+🎓 Logging in Student (STD001)...
+✅ Student Login Successful
+
+🤖 Generating Personalized Plan...
+✅ Plan Generated Successfully
+   Priority Topic: Fractions
+   Reason: Since the student is in grade 5, mastering fractions is crucial for their future math performance. It is essential to address any potential weaknesses in this area early on to prevent future struggles.
+   Action Plan: ["Step 1: Review the concept of equivalent fractions and how to compare them using visual models.","Step 2: Practice 5-7 questions on identifying and creating equivalent fractions, focusing on both visual and numerical representations.","Step 3: Watch a video on how to solve real-world problems involving fractions, such as measuring ingredients or dividing food."]

@@ -61,6 +61,7 @@ export const generateToken = (user) => {
             id: user.id,
             email: user.email,
             role: user.role,
+            school_id: user.school_id, // Added school_id
             profileId: user.profileId
         },
         JWT_SECRET,

@@ -37,6 +37,19 @@ export const authAPI = {
     signup: (data) => api.post('/auth/signup', data),
     login: (data) => api.post('/auth/login', data),
     verify: () => api.get('/auth/verify'),
+    registerSchool: (data) => api.post('/auth/register-school', data),
+    loginAdmin: (data) => api.post('/auth/login-admin', data),
+};
+
+// School API
+export const schoolAPI = {
+    list: () => api.get('/school/list'),
+    search: (query, role) => api.get('/school/search', { params: { query, role } }),
+    getStats: () => api.get('/school/stats'),
+    getAnalytics: () => api.get('/school/analytics'),
+    getDirectory: () => api.get('/school/directory'),
+    getStudentProfile: (id) => api.get(`/school/student/${id}/full-profile`),
+    getStudentWholeProfile: (id) => api.get(`/school/student/${id}/whole-profile`), // New
 };
 
 // Student API
@@ -49,6 +62,7 @@ export const studentAPI = {
     submitAnswer: (data) => api.post('/practice/submit', data),
     getNextTopic: () => api.get('/trajectory/next-topic'),
     getMasteryOverview: () => api.get('/trajectory/mastery-overview'),
+    getMyTeachers: () => api.get('/student/my-teachers'),
 };
 
 // AI API
@@ -62,16 +76,23 @@ export const aiAPI = {
 
 // Teacher API
 export const teacherAPI = {
-    uploadChapter: (formData) => api.post('/teacher/upload-chapter', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-    }),
+    uploadChapter: (formData) => api.post('/teacher/upload-chapter', formData),
     getChapters: () => api.get('/teacher/chapters'),
     getChapter: (id) => api.get(`/teacher/chapter/${id}`),
-    updateTopic: (id, data) => api.put(`/teacher/topic/${id}`, data),
-    publishChapter: (id) => api.post(`/teacher/chapter/${id}/publish`),
     deleteChapter: (id) => api.delete(`/teacher/chapter/${id}`),
+    getMyStudents: () => api.get('/teacher/my-students'),
+    getStudentProfile: (id) => api.get(`/teacher/student/${id}/full-profile`),
+    addFeedback: (data) => api.post('/teacher/student-feedback', data),
+    getClassStudents: () => api.get('/teacher/class-students'),
+    markAttendance: (data) => api.post('/teacher/attendance', data),
+    getAttendance: (date) => api.get(`/teacher/attendance/${date}`),
+    generateQuestions: (data) => api.post('/teacher/generate-questions', data),
+    saveQuestions: (data) => api.post('/teacher/save-questions', data),
+
+    // Class Management
+    getClasses: () => api.get('/teacher/classes'),
+    createClass: (data) => api.post('/teacher/classes', data),
+    assignHomework: (classId, data) => api.post(`/teacher/classes/${classId}/homework`, data),
 };
 
 export default api;
-
-

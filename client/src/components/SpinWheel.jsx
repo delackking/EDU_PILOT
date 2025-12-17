@@ -36,8 +36,8 @@ const SpinWheel = ({ onReward }) => {
 
     return (
         <div className="spin-wheel-container">
-            <h3>🎡 Daily Spin</h3>
-            <p className="spin-subtitle">Win XP and Badges!</p>
+            <h2>🎡 🎁 Daily Reward</h2>
+            <p className="spin-subtitle">Spin the wheel to win XP and badges!, and Complete Other Worksheet to get more Chances to Spin the Role! </p>
 
             <div className="wheel-wrapper">
                 <div className="wheel-pointer">▼</div>

@@ -148,4 +148,61 @@ router.post('/check-misconception', async (req, res) => {
     }
 });
 
+import { generateLearningPlan } from '../services/personalizationAI.js';
+import { db } from '../config/database.js';
+
+/**
+ * POST /api/ai/personalized-plan
+ * Generate a personalized learning plan for the student
+ */
+router.post('/personalized-plan', async (req, res) => {
+    try {
+        const studentId = req.user.profileId; // Assumes student is logged in
+        if (!studentId) {
+            return res.status(400).json({ error: 'Student profile not found' });
+        }
+
+        // 1. Fetch Student Data
+        const studentProfile = db.prepare('SELECT class FROM student_profiles WHERE id = ?').get(studentId);
+
+        // 2. Fetch Weak Areas
+        const weakAreas = db.prepare(`
+            SELECT t.name as topic, t.subject, m.score
+            FROM mastery m
+            JOIN topics t ON m.topic_id = t.id
+            WHERE m.student_id = ? AND m.score < 60
+            ORDER BY m.score ASC
+            LIMIT 3
+        `).all(studentId);
+
+        // 3. Fetch Recent Mistakes (Mocked or Real)
+        // Since mistake_logs might be empty, we'll fetch some if available
+        const recentMistakes = db.prepare(`
+            SELECT q.content as question, ml.mistake_type
+            FROM mistake_logs ml
+            JOIN questions q ON ml.question_id = q.id
+            WHERE ml.student_id = ?
+            ORDER BY ml.timestamp DESC
+            LIMIT 3
+        `).all(studentId);
+
+        // If no weak areas, maybe fetch the lowest scoring area or just a random one?
+        // For now, if no data, we pass empty arrays and let AI handle it (or provide defaults)
+
+        const plan = await generateLearningPlan(studentProfile, weakAreas, recentMistakes);
+
+        res.json({
+            success: true,
+            plan
+        });
+
+    } catch (error) {
+        console.error('Personalized Plan Error:', error);
+        if (error.message === 'Groq API not configured') {
+            return res.status(503).json({ error: 'AI features unavailable' });
+        }
+        res.status(500).json({ error: 'Failed to generate plan' });
+    }
+});
+
 export default router;

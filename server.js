@@ -3,8 +3,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import fs from 'fs'; // Moved to top
 import { initializeDatabase } from './config/database.js';
 import authRoutes from './routes/auth.js';
+import schoolRoutes from './routes/school.js'; // Moved to top
 import studentRoutes from './routes/student.js';
 import aiRoutes from './routes/ai.js';
 import teacherRoutes from './routes/teacher.js';
@@ -31,12 +33,6 @@ app.use(cors({
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-import fs from 'fs';
-
-// ... imports ...
-
-// Request logging middleware
-
 // Request logging middleware
 app.use((req, res, next) => {
     const logMessage = `\n📨 ${new Date().toISOString()} ${req.method} ${req.path}\nHeaders: ${JSON.stringify(req.headers['authorization'] ? { ...req.headers, authorization: 'Bearer [HIDDEN]' } : req.headers)}\n`;
@@ -59,11 +55,12 @@ app.get('/api/health', (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/teacher', teacherRoutes); // Specific routes first
+app.use('/api/school', schoolRoutes);
+app.use('/api/teacher', teacherRoutes);
 app.use('/api/parent', parentRoutes);
 app.use('/api/gamification', gamificationRoutes);
-app.use('/api', studentRoutes); // Generic routes last
 app.use('/api/ai', aiRoutes);
+app.use('/api', studentRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

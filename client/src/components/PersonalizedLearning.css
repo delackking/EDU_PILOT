@@ -1,0 +1,165 @@
+.personalized-learning-container {
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    overflow: hidden;
+    position: relative;
+}
+
+.personalized-learning-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+}
+
+.plan-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-icon {
+    font-size: 32px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.header-text h3 {
+    margin: 0;
+    font-size: 18px;
+    color: white;
+}
+
+.header-text p {
+    margin: 0;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.badge-priority {
+    margin-left: auto;
+    background: rgba(236, 72, 153, 0.2);
+    color: #f472b6;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.plan-body {
+    padding: 20px;
+}
+
+.plan-reason {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #cbd5e1;
+    border-left: 3px solid #6366f1;
+}
+
+.plan-reason strong {
+    color: #818cf8;
+}
+
+.action-steps h4 {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+}
+
+.step-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+}
+
+.step-number {
+    background: #1e293b;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #6366f1;
+    border: 1px solid #6366f1;
+    flex-shrink: 0;
+}
+
+.step-content {
+    font-size: 14px;
+    color: #e2e8f0;
+    line-height: 1.5;
+}
+
+.plan-footer {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.start-learning-btn {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.start-learning-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.ai-plan-loading {
+    padding: 30px;
+    text-align: center;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 16px;
+    margin-bottom: 30px;
+}
+
+.ai-spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(99, 102, 241, 0.3);
+    border-top-color: #6366f1;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

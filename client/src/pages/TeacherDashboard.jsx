@@ -3,11 +3,18 @@ import { useNavigate, Routes, Route, Link } from 'react-router-dom';
 import UploadChapter from './UploadChapter';
 import ChapterManagement from './ChapterManagement';
 import MyStudents from '../components/MyStudents';
+import StudentWholeProfile from '../components/StudentWholeProfile'; // Updated
+import AttendancePanel from '../components/AttendancePanel';
+import QuestionGenerator from '../components/QuestionGenerator';
+import ClassManager from '../components/ClassManager'; // New
+import { teacherAPI } from '../services/api';
+import axios from 'axios';
 import './TeacherDashboard.css';
 
 function TeacherDashboard() {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
+    const [selectedStudent, setSelectedStudent] = useState(null);
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
@@ -20,6 +27,14 @@ function TeacherDashboard() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         navigate('/login');
+    };
+
+    const handleViewStudent = (studentId) => {
+        setSelectedStudent(studentId);
+    };
+
+    const closeProfile = () => {
+        setSelectedStudent(null);
     };
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,6 +57,9 @@ function TeacherDashboard() {
                     <Link to="/teacher" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                         📊 Dashboard
                     </Link>
+                    <Link to="/teacher/classes" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                        🏫 Classes
+                    </Link>
                     <Link to="/teacher/upload" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                         📄 Upload Chapter
                     </Link>
@@ -50,6 +68,12 @@ function TeacherDashboard() {
                     </Link>
                     <Link to="/teacher/students" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                         👥 My Students
+                    </Link>
+                    <Link to="/teacher/attendance" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                        📅 Attendance
+                    </Link>
+                    <Link to="/teacher/question-generator" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                        ✨ Question Gen
                     </Link>
                     <button onClick={handleLogout} className="btn btn-secondary btn-sm mobile-only">
                         Logout
@@ -66,11 +90,25 @@ function TeacherDashboard() {
             {/* Routes */}
             <Routes>
                 <Route path="/" element={<TeacherHome user={user} />} />
+                <Route path="/classes" element={<ClassManager />} />
                 <Route path="/upload" element={<UploadChapter />} />
                 <Route path="/chapters" element={<ChapterManagement />} />
                 <Route path="/chapters/:id" element={<ChapterManagement />} />
-                <Route path="/students" element={<MyStudents />} />
+                <Route
+                    path="/students"
+                    element={<MyStudents onViewProfile={handleViewStudent} />}
+                />
+                <Route path="/attendance" element={<AttendancePanel />} />
+                <Route path="/question-generator" element={<QuestionGeneratorPage />} />
             </Routes>
+
+            {/* Whole Student Profile Modal */}
+            {selectedStudent && (
+                <StudentWholeProfile
+                    studentId={selectedStudent}
+                    onClose={closeProfile}
+                />
+            )}
         </div>
     );
 }
@@ -162,6 +200,27 @@ function TeacherHome({ user }) {
             </div>
         </div>
     );
+}
+
+function QuestionGeneratorPage() {
+    const [topics, setTopics] = useState([]);
+
+    useEffect(() => {
+        const fetchTopics = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get('http://localhost:5001/api/teacher/topics', {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setTopics(response.data.topics);
+            } catch (error) {
+                console.error('Error fetching topics:', error);
+            }
+        };
+        fetchTopics();
+    }, []);
+
+    return <QuestionGenerator topics={topics} />;
 }
 
 export default TeacherDashboard;
