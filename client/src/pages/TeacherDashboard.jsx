@@ -55,25 +55,25 @@ function TeacherDashboard() {
 
                 <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
                     <Link to="/teacher" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                        📊 Dashboard
+                        Dashboard
                     </Link>
                     <Link to="/teacher/classes" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                        🏫 Classes
+                        Classes
                     </Link>
                     <Link to="/teacher/upload" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                        📄 Upload Chapter
+                        Upload Chapter
                     </Link>
                     <Link to="/teacher/chapters" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                        📚 My Chapters
+                        My Chapters
                     </Link>
                     <Link to="/teacher/students" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                        👥 My Students
+                        My Students
                     </Link>
                     <Link to="/teacher/attendance" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                        📅 Attendance
+                        Attendance
                     </Link>
                     <Link to="/teacher/question-generator" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                        ✨ Question Gen
+                        Question Gen
                     </Link>
                     <button onClick={handleLogout} className="btn btn-secondary btn-sm mobile-only">
                         Logout

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link, Routes, Route } from 'react-router-dom';
+import { useNavigate, Link, Routes, Route, useLocation } from 'react-router-dom';
 import { studentAPI } from '../services/api';
 import SpinWheel from '../components/SpinWheel';
 import MyTeachers from '../components/MyTeachers';
@@ -11,8 +11,31 @@ import Practice from './Practice';
 const Leaderboard = () => <div style={{ color: 'white' }}>Leaderboard (Coming Soon)</div>;
 const AITutor = () => <div style={{ color: 'white' }}>AI Tutor (Coming Soon)</div>;
 
-function DashboardHome({ data, user }) {
+function DashboardHome({ data, user, error }) {
     const navigate = useNavigate();
+
+    if (error) {
+        return (
+            <div style={{ color: 'white', textAlign: 'center', marginTop: '50px' }}>
+                <h3>Something went wrong</h3>
+                <p>{error}</p>
+                <button
+                    onClick={() => window.location.reload()}
+                    style={{
+                        padding: '10px 20px',
+                        background: '#5b21b6',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        marginTop: '20px'
+                    }}
+                >
+                    Reload Dashboard
+                </button>
+            </div>
+        );
+    }
 
     if (!data) return <div style={{ color: 'white' }}>Loading data...</div>;
 
@@ -275,49 +298,54 @@ function DashboardHome({ data, user }) {
 function StudentDashboard({ user = { name: 'ansh' }, onLogout = () => console.log('Logged out') }) {
     const [dashboardData, setDashboardData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const fetchDashboardData = async () => {
+        try {
+            setLoading(true);
+            const response = await studentAPI.getDashboard();
+            const { profile, mastery } = response.data;
+
+            // Calculate strong and weak subjects based on mastery
+            const strongSubjects = mastery
+                .filter(m => m.status === 'Mastered')
+                .map(m => m.subject);
+
+            const weakSubjects = mastery
+                .filter(m => m.status === 'Developing' || m.status === 'Needs Practice')
+                .map(m => m.subject);
+
+            setDashboardData({
+                xp: profile.xp || 0,
+                level: profile.level || 1,
+                streak: profile.streak || 0,
+                nextLevelXP: (profile.level + 1) * 500, // Simple progression formula
+                nextRecommendedTopic: "Algebraic Expressions", // Placeholder for now
+                strongSubjects: strongSubjects.length > 0 ? strongSubjects : ["Mathematics"],
+                weakSubjects: weakSubjects.length > 0 ? weakSubjects : ["Physics"]
+            });
+            setError(null);
+        } catch (error) {
+            console.error("Failed to fetch dashboard data:", error);
+            setError("Failed to load dashboard data.");
+            // Fallback data
+            setDashboardData({
+                xp: 0,
+                level: 1,
+                streak: 0,
+                nextLevelXP: 500,
+                nextRecommendedTopic: "Introduction to Science",
+                strongSubjects: [],
+                weakSubjects: []
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchDashboardData = async () => {
-            try {
-                const response = await studentAPI.getDashboard();
-                const { profile, mastery } = response.data;
-
-                // Calculate strong and weak subjects based on mastery
-                const strongSubjects = mastery
-                    .filter(m => m.status === 'Mastered')
-                    .map(m => m.subject);
-
-                const weakSubjects = mastery
-                    .filter(m => m.status === 'Developing' || m.status === 'Needs Practice')
-                    .map(m => m.subject);
-
-                setDashboardData({
-                    xp: profile.xp || 0,
-                    level: profile.level || 1,
-                    streak: profile.streak || 0,
-                    nextLevelXP: (profile.level + 1) * 500, // Simple progression formula
-                    nextRecommendedTopic: "Algebraic Expressions", // Placeholder for now
-                    strongSubjects: strongSubjects.length > 0 ? strongSubjects : ["Mathematics"],
-                    weakSubjects: weakSubjects.length > 0 ? weakSubjects : ["Physics"]
-                });
-            } catch (error) {
-                console.error("Failed to fetch dashboard data:", error);
-                // Fallback data
-                setDashboardData({
-                    xp: 0,
-                    level: 1,
-                    streak: 0,
-                    nextLevelXP: 500,
-                    nextRecommendedTopic: "Introduction to Science",
-                    strongSubjects: [],
-                    weakSubjects: []
-                });
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchDashboardData();
     }, []);
 
@@ -475,7 +503,7 @@ function StudentDashboard({ user = { name: 'ansh' }, onLogout = () => console.lo
             {/* Dashboard Content Routing */}
             <div style={styles.dashboardContent}>
                 <Routes>
-                    <Route path="/" element={<DashboardHome data={dashboardData} user={user} />} />
+                    <Route path="/" element={<DashboardHome data={dashboardData} user={user} error={error} />} />
                     <Route path="/subjects" element={<SubjectsBrowser />} />
                     <Route path="/topic/:id" element={<TopicView />} />
                     <Route path="/practice/:topicId" element={<Practice />} />
